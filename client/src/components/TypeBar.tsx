@@ -1,25 +1,24 @@
-import React, {useContext} from 'react';
 import {ListGroup} from "react-bootstrap";
-import {Context} from "../index";
 import {observer} from "mobx-react-lite";
+import {useBearStore} from "../store/store";
 
-const TypeBar = observer(() => {
-    const {device} = useContext(Context)
+const TypeBar = () => {
+    const {types, setSelectedType, selectedType} = useBearStore()
 
     return (
         <ListGroup>
-            {device.types.map(type =>
+            {types.map(type =>
                 <ListGroup.Item
                     key={type.id}
                     style={{cursor: 'pointer'}}
-                    active={type.id === device.selectedType.id}
-                    onClick={() => device.setSelectedType(type)}
+                    active={type.id === selectedType?.id}
+                    onClick={() => setSelectedType(type)}
                 >
                     {type.name}
                 </ListGroup.Item>
             )}
         </ListGroup>
     );
-});
+};
 
 export default TypeBar;

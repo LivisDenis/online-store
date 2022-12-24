@@ -1,19 +1,19 @@
-import React, {useContext} from 'react';
+import React from 'react';
 import {Row} from "react-bootstrap";
-import {Context} from "../index";
-import DeviceItem from "./DeviceItem";
+import DeviceItem from "./DeviceItem.js";
 import {observer} from "mobx-react-lite";
+import {useBearStore} from "../store/store";
 
-const DeviceList = observer(() => {
-    const {device} = useContext(Context)
+const DeviceList = () => {
+    const {devices} = useBearStore()
 
     return (
         <Row className='flex-wrap mt-2'>
-            {device.devices.map(device =>
+            {devices.map(device =>
                 <DeviceItem key={device.id} device={device}/>
             )}
         </Row>
     );
-});
+};
 
 export default DeviceList;

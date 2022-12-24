@@ -1,8 +1,13 @@
 import React, {useState} from 'react';
 import {Button, Form, Modal} from "react-bootstrap";
-import {createType} from "../../http/deviceAPI";
+import {createType} from "../../http/deviceAPI.js";
 
-const CreateType = ({show, onHide}) => {
+interface IModalsProps {
+    show: boolean
+    onHide: () => void
+}
+
+const CreateType: React.FC<IModalsProps> = ({show, onHide}) => {
     const [value, setValue] = useState('')
 
     const addType = () => {

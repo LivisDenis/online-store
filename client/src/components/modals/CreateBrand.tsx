@@ -1,8 +1,13 @@
 import React, {useState} from 'react';
 import {Button, Form, Modal} from "react-bootstrap";
-import {createBrand} from "../../http/deviceAPI";
+import {createBrand} from "../../http/deviceAPI.js";
 
-const CreateBrand = ({show, onHide}) => {
+interface IModalsProps {
+    show: boolean
+    onHide: () => void
+}
+
+const CreateBrand: React.FC<IModalsProps> = ({show, onHide}) => {
     const [value, setValue] = useState('')
 
     const addBrand = () => {

@@ -1,10 +1,15 @@
-import React, {useEffect} from 'react';
+import React from 'react';
 import {Card, Col, Image} from "react-bootstrap";
 import {useNavigate} from "react-router-dom";
 import star from '../assets/star.svg'
-import {DEVICE_ROUTE} from "../utils/consts";
+import {DEVICE_ROUTE} from "../utils/consts.js";
+import {IDevice} from "../store/types";
 
-const DeviceItem = ({device}) => {
+interface DeviceItemProps {
+    device: IDevice
+}
+
+const DeviceItem: React.FC<DeviceItemProps> = ({device}) => {
     const navigate = useNavigate();
 
     return (

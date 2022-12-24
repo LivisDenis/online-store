@@ -1,31 +1,30 @@
-import React, {useContext, useEffect} from 'react';
+import React, {useEffect} from 'react';
 import TypeBar from "../components/TypeBar";
 import {Col, Container, Row} from "react-bootstrap";
 import BrandBar from "../components/BrandBar";
 import DeviceList from "../components/DeviceList";
-import {observer} from "mobx-react-lite";
 import {fetchBrands, fetchDevices, fetchTypes} from "../http/deviceAPI";
-import {Context} from "../index";
 import Pages from "../components/Pages";
+import {useBearStore} from "../store/store";
 
-const Shop = observer(() => {
-    const {device} = useContext(Context)
+const Shop = () => {
+    const {setBrands, setDevices, page, setTotalCount, selectedBrand, setTypes, selectedType} = useBearStore()
 
     useEffect(() => {
-        fetchTypes().then(data => device.setTypes(data))
-        fetchBrands().then(data => device.setBrands(data))
+        fetchTypes().then(data => setTypes(data))
+        fetchBrands().then(data => setBrands(data))
         fetchDevices(null, null, 1, 2).then(data => {
-            device.setDevices(data.rows)
-            device.setTotalCount(data.count)
+            setDevices(data.rows)
+            setTotalCount(data.count)
         })
     }, [])
 
     useEffect(() => {
-        fetchDevices(device.selectedType.id, device.selectedBrand.id, device.page, 2).then(data => {
-            device.setDevices(data.rows)
-            device.setTotalCount(data.count)
+        fetchDevices(selectedType?.id, selectedBrand?.id, page, 2).then(data => {
+            setDevices(data.rows)
+            setTotalCount(data.count)
         })
-    }, [device.page, device.selectedType, device.selectedBrand])
+    }, [page, selectedType, selectedBrand])
 
     return (
         <Container className='mt-5'>
@@ -41,6 +40,6 @@ const Shop = observer(() => {
             </Row>
         </Container>
     );
-});
+};
 
 export default Shop;

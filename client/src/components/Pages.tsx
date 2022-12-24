@@ -1,11 +1,11 @@
-import React, {useContext} from 'react';
-import {Context} from "../index";
+import React from 'react';
 import {Pagination} from "react-bootstrap";
 import {observer} from "mobx-react-lite";
+import {useBearStore} from "../store/store";
 
-const Pages = observer(() => {
-    const {device} = useContext(Context)
-    const pageCount = Math.ceil(device.totalCount / device.limit)
+const Pages = () => {
+    const {totalCount, page, setPage, limit} = useBearStore()
+    const pageCount = Math.ceil(totalCount / limit)
     const pages = []
 
     for (let i = 0; i < pageCount; i++) {
@@ -15,11 +15,11 @@ const Pages = observer(() => {
     return (
         <Pagination>
             {
-                pages.map(page =>
+                pages.map(i =>
                     <Pagination.Item
-                        key={page}
-                        active={device.page === page}
-                        onClick={() => device.setPage(page)}
+                        key={i}
+                        active={page === i}
+                        onClick={() => setPage(i)}
                     >
                         {page}
                     </Pagination.Item>
@@ -27,6 +27,6 @@ const Pages = observer(() => {
             }
         </Pagination>
     );
-});
+};
 
 export default Pages;

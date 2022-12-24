@@ -1,31 +1,32 @@
-import React, {useContext, useState} from 'react';
+import React, {useState} from 'react';
 import {Button, Container, Form, Row} from "react-bootstrap";
 import {NavLink, useLocation, useNavigate} from "react-router-dom";
-import {LOGIN_ROUTE, REGISTRATION_ROUTE, SHOP_ROUTE} from "../utils/consts";
+import {LOGIN_ROUTE, REGISTRATION_ROUTE, SHOP_ROUTE} from "../utils/consts.js";
 import {login, registration} from "../http/userAPI";
-import {Context} from "../index";
-import {observer} from "mobx-react-lite";
+import {useBearStore} from "../store/store";
 
-const Auth = observer(() => {
+const Auth = () => {
     const location = useLocation()
-    const {user} = useContext(Context)
     const navigate = useNavigate()
     const isLogin = location.pathname === LOGIN_ROUTE
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
     const [error, setError] = useState('')
 
+    const {setUser, setIsAuth} = useBearStore()
+
     const check = async () => {
         try {
             let data
             if (isLogin) {
                 data = await login(email, password)
+                console.log(data)
             } else {
                 data = await registration(email, password)
                 console.log(data)
             }
-            user.setUser(user)
-            user.setIsAuth(true)
+            setUser(data)
+            setIsAuth(true)
             navigate(SHOP_ROUTE)
         } catch (e) {
             setError(e.response.data.message.message)
@@ -75,6 +76,6 @@ const Auth = observer(() => {
             </Form>
         </Container>
     );
-});
+};
 
 export default Auth;
