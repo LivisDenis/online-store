@@ -1,19 +1,18 @@
 import React from 'react';
-import {Row} from "react-bootstrap";
-import DeviceItem from "./DeviceItem.js";
-import {observer} from "mobx-react-lite";
-import {useBearStore} from "../store/store";
+import { Row } from 'react-bootstrap';
+import DeviceItem from './DeviceItem.js';
+import { useBearStore } from '../store/store';
 
 const DeviceList = () => {
-    const {devices} = useBearStore()
+  const { devices } = useBearStore();
 
-    return (
-        <Row className='flex-wrap mt-2'>
-            {devices.map(device =>
-                <DeviceItem key={device.id} device={device}/>
-            )}
-        </Row>
-    );
+  return (
+    <Row className='mt-2 flex-wrap'>
+      {devices.map((device) => (
+        <DeviceItem key={device.id} device={device} />
+      ))}
+    </Row>
+  );
 };
 
 export default DeviceList;
