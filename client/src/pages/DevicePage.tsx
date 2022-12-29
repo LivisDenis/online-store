@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react';
-import { Button, Col, Container, Image, Row } from 'react-bootstrap';
 import { useParams } from 'react-router-dom';
 import star from '../assets/star.svg';
 import { fetchOneDevice } from '../http/deviceAPI';
@@ -21,26 +20,26 @@ const DevicePage = () => {
   };
 
   return (
-    <Container className='mt-5'>
-      <Row className='bg-light'>
-        <Col md={4}>
-          <Image src={process.env.REACT_APP_API_URL! + devices?.img} width={250} />
-        </Col>
-        <Col className='d-flex flex-column p-3' md={4}>
+    <div className='mt-5'>
+      <div className='bg-light'>
+        <div>
+          <img src={process.env.REACT_APP_API_URL! + devices?.img} width={250} alt='img' />
+        </div>
+        <div className='d-flex flex-column p-3'>
           <div>
             <div>{devices?.name}</div>
             <div className='d-flex align-items-center'>
               {devices?.rating}
-              <Image width={16} height={16} src={star} />
+              <img width={16} height={16} src={star} alt='img' />
             </div>
           </div>
           <div className='mt-auto'>
             <div style={{ fontSize: 20 }}>Цена: {devices?.price}</div>
-            <Button onClick={addDeviceOnBasket}>Добавить в корзину</Button>
+            <button onClick={addDeviceOnBasket}>Добавить в корзину</button>
           </div>
-        </Col>
-      </Row>
-      <Row className='mt-4'>
+        </div>
+      </div>
+      <div className='mt-4'>
         <h3>Характеристики:</h3>
         {devices?.info?.map((item, i) => (
           <div
@@ -50,8 +49,8 @@ const DevicePage = () => {
             {item.title}: {item.description}
           </div>
         ))}
-      </Row>
-    </Container>
+      </div>
+    </div>
   );
 };
 

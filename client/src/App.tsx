@@ -3,8 +3,9 @@ import { BrowserRouter } from 'react-router-dom';
 import AppRouter from './components/AppRouter';
 import NavBar from './components/NavBar';
 import { check } from './http/userAPI';
-import { Spinner } from 'react-bootstrap';
 import { useBearStore } from './store/store';
+import Carousel from './components/Carousel';
+import Home from './pages/Home';
 
 const App = () => {
   const [loading, setLoading] = useState(true);
@@ -23,8 +24,11 @@ const App = () => {
 
   return (
     <BrowserRouter>
-      <NavBar />
-      {loading ? <Spinner className='text-center' animation={'grow'} /> : <AppRouter />}
+      <div className={'mx-auto max-w-[1205px] px-[15px]'}>
+        <NavBar />
+        <Home />
+        {/*<AppRouter />*/}
+      </div>
     </BrowserRouter>
   );
 };

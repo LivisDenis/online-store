@@ -1,5 +1,4 @@
 import React from 'react';
-import { Pagination } from 'react-bootstrap';
 import { useBearStore } from '../store/store';
 
 const Pages = () => {
@@ -12,13 +11,17 @@ const Pages = () => {
   }
 
   return (
-    <Pagination>
+    <div>
       {pages.map((i) => (
-        <Pagination.Item key={i} active={page === i} onClick={() => setPage(i)}>
+        <div
+          key={i}
+          // active={page === i}
+          onClick={() => setPage(i)}
+        >
           {i}
-        </Pagination.Item>
+        </div>
       ))}
-    </Pagination>
+    </div>
   );
 };
 

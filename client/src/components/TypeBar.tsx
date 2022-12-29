@@ -1,22 +1,21 @@
-import { ListGroup } from 'react-bootstrap';
 import { useBearStore } from '../store/store';
 
 const TypeBar = () => {
   const { types, setSelectedType, selectedType } = useBearStore();
 
   return (
-    <ListGroup>
+    <ul>
       {types.map((type) => (
-        <ListGroup.Item
+        <li
           key={type.id}
           style={{ cursor: 'pointer' }}
-          active={type.id === selectedType?.id}
+          // active={type.id === selectedType?.id}
           onClick={() => setSelectedType(type)}
         >
           {type.name}
-        </ListGroup.Item>
+        </li>
       ))}
-    </ListGroup>
+    </ul>
   );
 };
 

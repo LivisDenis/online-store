@@ -44,6 +44,6 @@ export const fetchDevices = async (
 };
 
 export const fetchOneDevice = async (id: string | undefined): Promise<IDevice> => {
-  const { data } = await axios.get<IDevice>(`api/device/${  id}`);
+  const { data } = await axios.get<IDevice>(`api/device/${id}`);
   return data;
 };

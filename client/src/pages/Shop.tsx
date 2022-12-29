@@ -1,5 +1,4 @@
 import React, { useEffect } from 'react';
-import { Col, Container, Row } from 'react-bootstrap';
 import TypeBar from '../components/TypeBar';
 import BrandBar from '../components/BrandBar';
 import DeviceList from '../components/DeviceList';
@@ -28,18 +27,18 @@ const Shop = () => {
   }, [page, selectedType, selectedBrand]);
 
   return (
-    <Container className='mt-5'>
-      <Row>
-        <Col md={3}>
+    <div className='mt-5'>
+      <div>
+        <div>
           <TypeBar />
-        </Col>
-        <Col md={9}>
+        </div>
+        <div>
           <BrandBar />
           <DeviceList />
           <Pages />
-        </Col>
-      </Row>
-    </Container>
+        </div>
+      </div>
+    </div>
   );
 };
 

@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react';
-import { Button, Col, Dropdown, Form, Modal, Row } from 'react-bootstrap';
 import { createDevice, fetchBrands, fetchTypes } from '../../http/deviceAPI.js';
 import { useBearStore } from '../../store/store';
 
@@ -68,89 +67,82 @@ const CreateDevice: React.FC<IModalsProps> = ({ show, onHide }) => {
   };
 
   return (
-    <Modal show={show} onHide={onHide}>
-      <Modal.Header closeButton>
-        <Modal.Title>Добавить устройство</Modal.Title>
-      </Modal.Header>
-      <Modal.Body>
-        <Form>
-          <Dropdown>
-            <Dropdown.Toggle variant='success' id='dropdown-basic'>
-              {selectedType?.name || 'Выбрать тип'}
-            </Dropdown.Toggle>
+    // <div show={show} onHide={onHide}>
+    <div>
+      <div>
+        <div>Добавить устройство</div>
+      </div>
+      <div>
+        <form>
+          <div>
+            <div>{selectedType?.name || 'Выбрать тип'}</div>
 
-            <Dropdown.Menu>
+            <select>
               {types.map((type) => (
-                <Dropdown.Item onClick={() => setSelectedType(type)} key={type.id}>
+                <option onClick={() => setSelectedType(type)} key={type.id}>
                   {type.name}
-                </Dropdown.Item>
+                </option>
               ))}
-            </Dropdown.Menu>
-          </Dropdown>
-          <Dropdown className='mt-4'>
-            <Dropdown.Toggle variant='success' id='dropdown-basic'>
-              {selectedBrand?.name || 'Выбрать бренд'}
-            </Dropdown.Toggle>
+            </select>
+          </div>
+          <div className='mt-4'>
+            <div>{selectedBrand?.name || 'Выбрать бренд'}</div>
 
-            <Dropdown.Menu>
+            <select>
               {brands.map((brand) => (
-                <Dropdown.Item onClick={() => setSelectedBrand(brand)} key={brand.id}>
+                <option onClick={() => setSelectedBrand(brand)} key={brand.id}>
                   {brand.name}
-                </Dropdown.Item>
+                </option>
               ))}
-            </Dropdown.Menu>
-          </Dropdown>
-          <Form.Control
+            </select>
+          </div>
+          <input
             className='mt-4'
             placeholder='Введите название устройства...'
             type='text'
             value={name}
             onChange={(e) => setName(e.target.value)}
           />
-          <Form.Control
+          <input
             className='mt-4'
             placeholder='Введите цену устройства...'
             type='number'
             value={price}
             onChange={(e) => setPrice(Number(e.target.value))}
           />
-          <Form.Control className='mt-4' type='file' onChange={selectFile} />
+          <input className='mt-4' type='file' onChange={selectFile} />
           <hr />
-          <Button onClick={addInfo}>Добавить новое свойство</Button>
+          <button onClick={addInfo}>Добавить новое свойство</button>
           {info.map((item) => (
-            <Row key={item.number} className='mt-4'>
-              <Col md={4}>
-                <Form.Control
+            <div key={item.number} className='mt-4'>
+              <div>
+                <input
                   type='text'
                   placeholder='Введите название устройства...'
                   value={item.title}
                   onChange={(e) => changeInfo('title', e.target.value, item.number)}
                 />
-              </Col>
-              <Col md={4}>
-                <Form.Control
+              </div>
+              <div>
+                <input
                   type='text'
                   placeholder='Введите описание устройства...'
                   value={item.description}
                   onChange={(e) => changeInfo('description', e.target.value, item.number)}
                 />
-              </Col>
-              <Col md={4}>
-                <Button onClick={() => removeInfo(item.number)}>Удалить</Button>
-              </Col>
-            </Row>
+              </div>
+              <div>
+                <button onClick={() => removeInfo(item.number)}>Удалить</button>
+              </div>
+            </div>
           ))}
-        </Form>
-      </Modal.Body>
-      <Modal.Footer>
-        <Button variant='secondary' onClick={onHide}>
-          Закрыть
-        </Button>
-        <Button variant='primary' onClick={addDevice}>
-          Добавить
-        </Button>
-      </Modal.Footer>
-    </Modal>
+        </form>
+      </div>
+      <div>
+        <button onClick={onHide}>Закрыть</button>
+        <button onClick={addDevice}>Добавить</button>
+      </div>
+    </div>
   );
 };
 

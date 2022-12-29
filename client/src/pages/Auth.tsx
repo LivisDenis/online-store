@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import { Button, Container, Form, Row } from 'react-bootstrap';
 import { NavLink, useLocation, useNavigate } from 'react-router-dom';
 import { AxiosError } from 'axios';
 import { LOGIN_ROUTE, REGISTRATION_ROUTE, SHOP_ROUTE } from '../utils/consts.js';
@@ -35,20 +34,20 @@ const Auth = () => {
   };
 
   return (
-    <Container
+    <div
       className='d-flex justify-content-center align-items-center'
       style={{ height: window.innerHeight - 164 }}
     >
-      <Form style={{ width: 600 }} className='bg-light p-4'>
+      <form style={{ width: 600 }} className='bg-light p-4'>
         <h2 className='text-center'>{isLogin ? 'Авторизация' : 'Регистрация'}</h2>
-        <Form.Control
+        <input
           className='mt-3'
           type='email'
           placeholder='Enter email'
           value={email}
           onChange={(e) => setEmail(e.target.value)}
         />
-        <Form.Control
+        <input
           className='mt-3'
           type='password'
           placeholder='Password'
@@ -56,7 +55,7 @@ const Auth = () => {
           onChange={(e) => setPassword(e.target.value)}
         />
         <div className='text-danger'>{error}</div>
-        <Row className='m-0 mt-3'>
+        <div className='m-0 mt-3'>
           {isLogin ? (
             <div className='p-0'>
               Нет аккаунта?
@@ -72,12 +71,12 @@ const Auth = () => {
               </NavLink>
             </div>
           )}
-          <Button className='mt-3' variant='primary' onClick={check}>
+          <button className='mt-3' onClick={check}>
             {isLogin ? 'Войти' : 'Зарегестрироваться'}
-          </Button>
-        </Row>
-      </Form>
-    </Container>
+          </button>
+        </div>
+      </form>
+    </div>
   );
 };
 

@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import { Button, Form, Modal } from 'react-bootstrap';
 import { createType } from '../../http/deviceAPI.js';
 
 interface IModalsProps {
@@ -16,28 +15,25 @@ const CreateType: React.FC<IModalsProps> = ({ show, onHide }) => {
   };
 
   return (
-    <Modal show={show} onHide={onHide}>
-      <Modal.Header closeButton>
-        <Modal.Title>Добавить тип</Modal.Title>
-      </Modal.Header>
-      <Modal.Body>
-        <Form>
-          <Form.Control
+    // <Modal show={show} onHide={onHide}>
+    <div>
+      <div>
+        <div>Добавить тип</div>
+      </div>
+      <div>
+        <form>
+          <input
             value={value}
             onChange={(e) => setValue(e.target.value)}
             placeholder='Введите название типа...'
           />
-        </Form>
-      </Modal.Body>
-      <Modal.Footer>
-        <Button variant='secondary' onClick={onHide}>
-          Закрыть
-        </Button>
-        <Button variant='primary' onClick={addType}>
-          Добавить
-        </Button>
-      </Modal.Footer>
-    </Modal>
+        </form>
+      </div>
+      <div>
+        <button onClick={onHide}>Закрыть</button>
+        <button onClick={addType}>Добавить</button>
+      </div>
+    </div>
   );
 };
 
