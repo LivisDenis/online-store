@@ -1,5 +1,5 @@
-import { Link } from 'react-router-dom';
 import React from 'react';
+import { Link } from 'react-router-dom';
 import headphones from '../assets/categories/headphones.png';
 import camera from '../assets/categories/camera.png';
 import macbook from '../assets/categories/macbook.png';

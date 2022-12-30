@@ -42,5 +42,6 @@ module.exports = {
     'class-methods-use-this': 0,
     'no-param-reassign': 0,
     'no-unsafe-optional-chaining': 0,
+    "no-use-before-define": "off",
   },
 };

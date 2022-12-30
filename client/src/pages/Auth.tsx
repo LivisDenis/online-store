@@ -40,8 +40,8 @@ const Login = () => {
         <h2 className='text-[30px] font-medium leading-6 text-gray-900'>
           {isLogin ? 'Авторизация' : 'Регистрация'}
         </h2>
-        <form className={'mt-2'}>
-          <div className={'relative w-full'}>
+        <form className='mt-2'>
+          <div className='relative w-full'>
             <input
               className='mt-7 h-10 w-full rounded-[10px] py-[10px] pl-6'
               type='email'
