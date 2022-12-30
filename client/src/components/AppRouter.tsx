@@ -1,6 +1,6 @@
 import React from 'react';
 import { Routes, Route, Navigate } from 'react-router-dom';
-import { authRoutes, publicRoutes } from '../routes';
+import { authRoutes, publicRoutes } from '../utils/routes';
 import { SHOP_ROUTE } from '../utils/consts.js';
 import { useBearStore } from '../store/store';
 

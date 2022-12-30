@@ -19,17 +19,17 @@ interface IPopularElectronics {
 }
 
 const PopularElectronics: React.FC<IPopularElectronics> = ({ title }) => (
-    <section className="mt-20">
-      <h2 className="text-[30px]">{title}</h2>
-      <div className="mt-[40px] grid grid-cols-5 gap-[20px]">
-        {image.map((item, i) => (
-          <Link to="" key={i}>
-            <CategoryItem {...item} />
-          </Link>
-        ))}
-      </div>
-      <button className="mt-10 w-full rounded-[10px] bg-gray-200 p-3">Показать еще</button>
-    </section>
-  );
+  <section className='mt-20'>
+    <h2 className='text-[30px]'>{title}</h2>
+    <div className='mt-[40px] grid grid-cols-5 gap-[20px]'>
+      {image.map((item, i) => (
+        <Link to='' key={i}>
+          <CategoryItem {...item} />
+        </Link>
+      ))}
+    </div>
+    <button className='mt-10 w-full rounded-[10px] bg-gray-200 p-3'>Показать еще</button>
+  </section>
+);
 
 export default PopularElectronics;
