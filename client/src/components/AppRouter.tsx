@@ -1,11 +1,12 @@
 import React from 'react';
 import { Routes, Route, Navigate } from 'react-router-dom';
 import { authRoutes, publicRoutes } from '../utils/routes';
-import { SHOP_ROUTE } from '../utils/consts.js';
 import { useBearStore } from '../store/store';
+import { CREATE_ROUTE, HOME_ROUTE } from '../utils/consts';
+import Create from '../pages/Create';
 
 const AppRouter = () => {
-  const { isAuth } = useBearStore();
+  const { isAuth, user } = useBearStore();
 
   return (
     <div>
@@ -17,7 +18,8 @@ const AppRouter = () => {
         {publicRoutes.map(({ path, Component }) => (
           <Route key={path} path={path} element={<Component />} />
         ))}
-        <Route path='*' element={<Navigate to={SHOP_ROUTE} replace />} />
+        {user?.role === 'ADMIN' && <Route path={CREATE_ROUTE} element={<Create />} />}
+        <Route path='*' element={<Navigate to={HOME_ROUTE} replace />} />
       </Routes>
     </div>
   );

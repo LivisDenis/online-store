@@ -1,6 +1,7 @@
-import React, { useEffect, useState } from 'react';
-import { createDevice, fetchBrands, fetchTypes } from '../../http/deviceAPI.js';
+import React, { useRef, useState } from 'react';
+import { createDevice } from '../../http/deviceAPI.js';
 import { useBearStore } from '../../store/store';
+import ListBoxItem from '../Listbox';
 
 interface IInfo {
   title: string;
@@ -8,39 +9,23 @@ interface IInfo {
   number: number;
 }
 
-interface IModalsProps {
-  show: boolean;
-  onHide: () => void;
-}
-
-const CreateDevice: React.FC<IModalsProps> = ({ show, onHide }) => {
+const CreateDevice = () => {
   const [name, setName] = useState('');
   const [price, setPrice] = useState(0);
   const [file, setFile] = useState<File>();
   const [info, setInfo] = useState<IInfo[]>([]);
+  const ref = useRef<HTMLInputElement | null>(null);
 
-  const {
-    setBrands,
-    selectedBrand,
-    setSelectedBrand,
-    brands,
-    types,
-    setTypes,
-    setSelectedType,
-    selectedType
-  } = useBearStore();
-
-  useEffect(() => {
-    fetchTypes().then((data) => setTypes(data));
-    fetchBrands().then((data) => setBrands(data));
-  }, []);
+  const { selectedBrand, setSelectedBrand, brands, types, setSelectedType, selectedType } =
+    useBearStore();
 
   const selectFile = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (!e.target.files) return;
     setFile(e.target.files[0]);
   };
 
-  const addInfo = () => {
+  const addInfo = (e: React.MouseEvent<HTMLButtonElement>) => {
+    e.preventDefault();
     setInfo([...info, { title: '', description: '', number: Date.now() }]);
   };
   const removeInfo = (number: number) => {
@@ -60,88 +45,84 @@ const CreateDevice: React.FC<IModalsProps> = ({ show, onHide }) => {
     formData.append('brandId', selectedBrand?.id!);
     formData.append('info', JSON.stringify(info));
     createDevice(formData).then((data) => {
-      onHide();
       setName('');
       setPrice(0);
     });
   };
 
   return (
-    // <div show={show} onHide={onHide}>
     <div>
-      <div>
-        <div>Добавить устройство</div>
-      </div>
-      <div>
-        <form>
-          <div>
-            <div>{selectedType?.name || 'Выбрать тип'}</div>
-
-            <select>
-              {types.map((type) => (
-                <option onClick={() => setSelectedType(type)} key={type.id}>
-                  {type.name}
-                </option>
-              ))}
-            </select>
-          </div>
-          <div className='mt-4'>
-            <div>{selectedBrand?.name || 'Выбрать бренд'}</div>
-
-            <select>
-              {brands.map((brand) => (
-                <option onClick={() => setSelectedBrand(brand)} key={brand.id}>
-                  {brand.name}
-                </option>
-              ))}
-            </select>
-          </div>
+      <h2 className={'mb-auto text-[28px]'}>Добавить устройство</h2>
+      <form className={'flex flex-col'}>
+        <ListBoxItem types={types} />
+        <ListBoxItem types={brands} />
+        <input
+          className='mt-4 h-10 w-full rounded-[10px] border-[1px] border-green-500 py-[10px] pl-3'
+          placeholder='Введите название устройства...'
+          type='text'
+          value={name}
+          onChange={(e) => setName(e.target.value)}
+        />
+        <div className={'mt-4 flex items-center justify-between'}>
+          <p className={'mr-3'}>Введите цену устройства...</p>
           <input
-            className='mt-4'
-            placeholder='Введите название устройства...'
-            type='text'
-            value={name}
-            onChange={(e) => setName(e.target.value)}
-          />
-          <input
-            className='mt-4'
+            className='h-10 w-16 rounded-[10px] border-[1px] border-green-500 py-[10px] pl-3'
             placeholder='Введите цену устройства...'
             type='number'
             value={price}
             onChange={(e) => setPrice(Number(e.target.value))}
           />
-          <input className='mt-4' type='file' onChange={selectFile} />
-          <hr />
-          <button onClick={addInfo}>Добавить новое свойство</button>
-          {info.map((item) => (
-            <div key={item.number} className='mt-4'>
-              <div>
-                <input
-                  type='text'
-                  placeholder='Введите название устройства...'
-                  value={item.title}
-                  onChange={(e) => changeInfo('title', e.target.value, item.number)}
-                />
-              </div>
-              <div>
-                <input
-                  type='text'
-                  placeholder='Введите описание устройства...'
-                  value={item.description}
-                  onChange={(e) => changeInfo('description', e.target.value, item.number)}
-                />
-              </div>
-              <div>
-                <button onClick={() => removeInfo(item.number)}>Удалить</button>
-              </div>
-            </div>
-          ))}
-        </form>
-      </div>
-      <div>
-        <button onClick={onHide}>Закрыть</button>
-        <button onClick={addDevice}>Добавить</button>
-      </div>
+        </div>
+        <div>
+          <input ref={ref} accept='image/*' className='hidden' type='file' onChange={selectFile} />
+          <button
+            onClick={() => ref.current?.click()}
+            type={'button'}
+            className={'my-6 rounded-[5px] border-[2px] border-green-500 p-[40px] text-black'}
+          >
+            Загрузить фото
+          </button>
+        </div>
+
+        <hr />
+
+        <button
+          className='mt-6 w-full rounded-[5px] bg-green-500 px-[18px] py-[9px] text-white'
+          onClick={addInfo}
+        >
+          Добавить новое свойство
+        </button>
+        {info.map((item) => (
+          <div key={item.number} className='mt-4 flex flex-col'>
+            <input
+              type='text'
+              className='h-10 w-full rounded-[10px] border-[1px] border-green-500 py-[10px] pl-3'
+              placeholder='Введите название устройства...'
+              value={item.title}
+              onChange={(e) => changeInfo('title', e.target.value, item.number)}
+            />
+            <textarea
+              className='mt-4 h-10 w-full rounded-[10px] border-[1px] border-green-500 py-[10px] pl-3'
+              placeholder='Введите описание устройства...'
+              value={item.description}
+              onChange={(e) => changeInfo('description', e.target.value, item.number)}
+            />
+            <button
+              className='mt-6 w-full rounded-[5px] bg-red-500 px-[18px] py-[9px] text-white'
+              onClick={() => removeInfo(item.number)}
+            >
+              Удалить
+            </button>
+          </div>
+        ))}
+        <hr />
+        <button
+          className='mt-6 w-full rounded-[5px] bg-green-500 px-[18px] py-[9px] text-white'
+          onClick={addDevice}
+        >
+          Добавить
+        </button>
+      </form>
     </div>
   );
 };

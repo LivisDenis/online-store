@@ -1,8 +1,10 @@
+type UserRole = 'ADMIN' | 'USER';
+
 export interface IUser {
   id: number;
   email: string;
   password?: string;
-  role: string;
+  role: UserRole;
   token?: string | undefined;
 }
 

@@ -16,9 +16,9 @@ const CategoryItem: React.FC<ICategoryItem> = ({ img, title, price }) => (
       className='absolute top-0 right-0 flex h-[15px] w-[18px]'
     />
     <p className='mt-[10px] text-[18px] font-bold text-gray-700'>{price}</p>
-    <p className='mt-[10px]'>{title}</p>
+    <p className='mt-[10px] text-gray-700'>{title}</p>
     <p className='mt-[10px] text-gray-400'>26 предложений</p>
-    <button className='mt-[10px] block max-w-[145px] rounded-[10px] bg-green-500 py-[10px] text-[18px]'>
+    <button className='mt-[10px] block max-w-[145px] rounded-[10px] bg-green-500 py-[10px] text-[18px] text-white'>
       Купить
     </button>
   </div>

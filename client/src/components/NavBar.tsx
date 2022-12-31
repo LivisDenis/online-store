@@ -16,7 +16,6 @@ const NavbarAssets = [
 ];
 
 const NavBar = () => {
-
   return (
     <div className='flex items-center justify-between py-[30px]'>
       <Link to={HOME_ROUTE}>
@@ -26,7 +25,7 @@ const NavBar = () => {
       <Search />
       <ul className='flex'>
         <li className='relative ml-[45px] flex flex-col items-center'>
-          <AuthModal/>
+          <AuthModal />
         </li>
         {NavbarAssets.map((item, i) => (
           <li key={i} className='ml-[45px] flex flex-col items-center'>
@@ -39,7 +38,7 @@ const NavBar = () => {
                   </span>
                 )}
               </div>
-              <p className='mt-2 text-[14px]'>{item.title}</p>
+              <p className='mt-2 text-[14px] text-black'>{item.title}</p>
             </Link>
           </li>
         ))}

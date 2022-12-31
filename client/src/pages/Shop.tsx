@@ -3,7 +3,7 @@ import TypeBar from '../components/TypeBar';
 import BrandBar from '../components/BrandBar';
 import DeviceList from '../components/DeviceList';
 import { fetchBrands, fetchDevices, fetchTypes } from '../http/deviceAPI';
-import Pages from '../components/Pages';
+import Pagination from '../components/Pagination';
 import { useBearStore } from '../store/store';
 
 const Shop = () => {
@@ -35,7 +35,7 @@ const Shop = () => {
         <div>
           <BrandBar />
           <DeviceList />
-          <Pages />
+          <Pagination />
         </div>
       </div>
     </div>

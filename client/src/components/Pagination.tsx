@@ -1,7 +1,6 @@
-import React from 'react';
 import { useBearStore } from '../store/store';
 
-const Pages = () => {
+const Pagination = () => {
   const { totalCount, page, setPage, limit } = useBearStore();
   const pageCount = Math.ceil(totalCount / limit);
   const pages = [];
@@ -25,4 +24,4 @@ const Pages = () => {
   );
 };
 
-export default Pages;
+export default Pagination;

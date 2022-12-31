@@ -1,11 +1,14 @@
 import { Menu, Transition } from '@headlessui/react';
 import React, { Fragment, SVGAttributes } from 'react';
+import { Link } from 'react-router-dom';
+import { CREATE_ROUTE } from '../utils/consts';
 
 interface IProfileDropdown {
   logOut: () => void;
+  role: string | undefined;
 }
 
-const ProfileDropdown: React.FC<IProfileDropdown> = ({ logOut }) => (
+const ProfileMenu: React.FC<IProfileDropdown> = ({ logOut, role }) => (
   <div className=''>
     <Menu as='div' className='relative z-10 inline-block text-left'>
       <div>
@@ -104,6 +107,21 @@ const ProfileDropdown: React.FC<IProfileDropdown> = ({ logOut }) => (
                 </button>
               )}
             </Menu.Item>
+            {role === 'ADMIN' && (
+              <Menu.Item>
+                {({ active }) => (
+                  <Link
+                    to={CREATE_ROUTE}
+                    className={`${
+                      active ? 'bg-violet-500 text-white' : 'text-gray-900'
+                    } group flex w-full items-center rounded-md px-2 py-2 text-sm`}
+                  >
+                    <CreateIcon className='mr-2 h-5 w-5' aria-hidden='true' />
+                    Создать
+                  </Link>
+                )}
+              </Menu.Item>
+            )}
           </div>
         </Menu.Items>
       </Transition>
@@ -111,7 +129,7 @@ const ProfileDropdown: React.FC<IProfileDropdown> = ({ logOut }) => (
   </div>
 );
 
-export default ProfileDropdown;
+export default ProfileMenu;
 
 const LogoutIcon = (props: SVGAttributes<any>) => (
   <svg
@@ -192,5 +210,17 @@ const AddressesIcon = (props: SVGAttributes<any>) => (
       strokeLinejoin='round'
       d='M19.5 10.5c0 7.142-7.5 11.25-7.5 11.25S4.5 17.642 4.5 10.5a7.5 7.5 0 1115 0z'
     />
+  </svg>
+);
+const CreateIcon = (props: SVGAttributes<any>) => (
+  <svg
+    {...props}
+    xmlns='http://www.w3.org/2000/svg'
+    fill='none'
+    viewBox='0 0 24 24'
+    strokeWidth={1.5}
+    stroke='currentColor'
+  >
+    <path strokeLinecap='round' strokeLinejoin='round' d='M12 4.5v15m7.5-7.5h-15' />
   </svg>
 );
